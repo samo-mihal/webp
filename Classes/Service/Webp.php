@@ -53,13 +53,6 @@ class Webp
             $converter = GeneralUtility::makeInstance($converterClass, $parameters);
             $converter->convert($originalFilePath, $targetFilePath);
             $fileSizeTargetFile = @filesize($targetFilePath);
-            if ($originalFile->getSize() <= $fileSizeTargetFile) {
-                $this->saveFailedAttempt((int)$originalFile->getUid(), $parameters);
-                throw new ConvertedFileLargerThanOriginalException(
-                    sprintf('Converted file (%s) is larger than the original (%s)! Will not retry with this configuration!',
-                        $targetFilePath, $originalFilePath)
-                );
-            }
             $processedFile->updateProperties(
                 [
                     'width' => $originalFile->getProperty('width'),

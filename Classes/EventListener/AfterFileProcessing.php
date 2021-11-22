@@ -138,10 +138,6 @@ class AfterFileProcessing
     protected function isStorageLocalAndWritable(ProcessedFile $file): bool
     {
         $storage = $file->getStorage();
-        // Ignore files in fallback storage (e.g. files from extensions)
-        if ($storage->getStorageRecord()['uid'] === 0) {
-            return false;
-        }
 
         return $storage->getDriverType() === 'Local' && $storage->isWritable();
     }
